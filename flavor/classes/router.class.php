@@ -1,6 +1,5 @@
-<?php 
-
-class Router{
+<?php
+class router{
 	private $registry;
 	private $class = array(
 		'controller'=>'index',
@@ -16,16 +15,13 @@ class Router{
 		$this->getRoutes();
 	}
 	
-	private function getClass(){
-		return $this->class;
-	}
-
 	public function dispatch() {
 		$this->getController();
 
 		$controller = $this->class['controller'];
 		$action = $this->class['action'];
 		$params = $this->class['params'];
+		$this->registry->action = $action;
 		
 		$class = $controller."_controller";
 		$controller = new $class();
@@ -37,18 +33,10 @@ class Router{
 		$controller->action = $action;
 		$controller->params = $params;
 
-		if($params){
-			//Maybe we want more parameters
-			$extra_params = '';
-			foreach($this->parts as $param){
-				$extra_params .= ", '$param'";			
-			}
-			
-			$exec = "\$controller->".$action."('".$params."'".$extra_params.");";
-			eval($exec);
-		}else{
+		if($params)
+			$controller->$action($params);
+		else
 			$controller->$action();
-		}
 	}
 	
 	private function getController(){
@@ -169,26 +157,7 @@ class Router{
 					}
 				}
 			}
-		}
-
-		/*
-		 * Generador del relativePath a la carpeta "app" para utilizar desde las views
-		 * genera algo así: ../../../app/folder/folder/folder/...etc/
-		 */
-		$relativePath = "";
-		$relative = substr_count(trim($this->uri,"/")."/","/");
-
-		if(substr($this->route,-1,1) == "/"){
-			$offset = 0;
-		}else{
-			$offset = 1;
-		}
-
-		for($c=0;$c<$relative-$offset;$c++){
-			$relativePath .= "../";
-		}
-		
-		define("relativePathToApp",$relativePath);
+		}		
 	}
 
 	private function controllerExists($controller){
@@ -214,3 +183,4 @@ class Router{
 		$this->routes[$target] = $GET;
 	}
 }
+?>

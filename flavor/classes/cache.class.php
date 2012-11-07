@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Cache Class
  *
@@ -56,5 +56,7 @@ abstract class Cache extends Singleton {
 	 **/
 	public static function getInstance() {
 		return parent::getInstance(Cache::CACHE_TYPE);
-	}	
+	}
+
+	
 }

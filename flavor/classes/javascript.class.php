@@ -1,4 +1,4 @@
-<?php
+<?php  
 
 /**
  * JavaScript
@@ -14,7 +14,7 @@
  * @filesource
  */
 
-class Javascript {
+class javascript {
 	
 	function button_to_function($name,$function=null)
 	{
@@ -34,7 +34,7 @@ class Javascript {
 	
 	function tag($content)
 	{
-		return ' <script type="text/javascript">'.$content.'</script>'; 
+		return 'Â <script type="text/javascript">'.$content.'</script>'; 
 		//      `--- This is not space its ALT-255 ( fix for IE script tag not executing problem in Ajax problem)
 	}
 	
@@ -81,3 +81,6 @@ class Javascript {
 		return $return_val;
 	}
 }
+
+
+?>

@@ -24,17 +24,13 @@ if (!file_exists($configFile)) {
 	die('Installation required');
 } else {
     require_once($configFile);
-	if(!defined('Absolute2Flavor')){
-		define('Absolute2Flavor',Absolute_Path);
-	}
 }
 
 function __autoload($className) {
-	$className = strtolower($className);
 	$directories = array(
-		Absolute2Flavor.'flavor'.DIRSEP.'classes'.DIRSEP.$className.'.class.php', // Flavor classes
-		Absolute2Flavor.'flavor'.DIRSEP.'interfaces'.DIRSEP.$className.'.interface.php', // maybe we want an interface
-		Absolute2Flavor.'flavor'.DIRSEP.'helpers'.DIRSEP.$className.'.helper.php', // maybe we want a helper
+		Absolute_Path.'flavor'.DIRSEP.'classes'.DIRSEP.$className.'.class.php', // Flavor classes
+		Absolute_Path.'flavor'.DIRSEP.'interfaces'.DIRSEP.$className.'.interface.php', // maybe we want an interface
+		Absolute_Path.'flavor'.DIRSEP.'helpers'.DIRSEP.$className.'.helper.php', // maybe we want a helper
 		Absolute_Path.APPDIR.DIRSEP.$className.'.php', // maybe we want appcontroller or appviews
 		Absolute_Path.APPDIR.DIRSEP."controllers".DIRSEP.$className.'.php', // maybe we want a controller
 		Absolute_Path.APPDIR.DIRSEP.'models'.DIRSEP.$className.'.php', // maybe we want a model
@@ -59,7 +55,7 @@ function __autoload($className) {
 // 'Globals' to be used throughout the application
 // usign the _Registry Pattern_
 
-$registry = Registry::getInstance();
+$registry = registry::getInstance();
 
 try {
 
@@ -69,32 +65,32 @@ try {
 	$registry->path = $path;
 
 	if(!defined('requiresBD')){
-		$db = new DbFactory(strtolower(DB_Engine));
+		$db = new dbFactory(strtolower(DB_Engine));
 	} else {
 		if(requiresBD){
-			$db = new DbFactory(strtolower(DB_Engine));
+			$db = new dbFactory(strtolower(DB_Engine));
 		} else {
 			$db = null;
 		}
 	}
 	$registry->db = $db;
 
-	$views = new Appviews();
+	$views = new appviews();
 	$registry->views = $views;
 
-	$themes = new Themes();
+	$themes = new themes();
 	$registry->themes = $themes;
 
-	$session = Session::getInstance();
+	$session = session::getInstance();
 	$registry->session = $session;
 
-	$cookie = Cookie::getInstance();
+	$cookie = cookie::getInstance();
 	$registry->cookie = $cookie;
 
-	$router = new Router();
+	$router = new router();
 	$registry->router = $router;
 	
-	$debug = Debug::getInstance();
+	$debug = debug::getInstance();
 	$registry->debug = $debug;
 	
 	$registry->validateErrors = array();

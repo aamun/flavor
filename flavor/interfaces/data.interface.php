@@ -1,7 +1,7 @@
 <?php
 
 // Create the interface for data management
-interface Data {
+interface data {
 	
 	public static function getInstance();	
 	public function query($sql);

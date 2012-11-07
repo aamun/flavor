@@ -1,20 +1,27 @@
-<?php 
-
-class ActiveRecord implements ArrayAccess {
-	protected $record = array(); // Contiene los campos de la tabla
+<?php
+class activeRecord implements ArrayAccess {
+	private $record = array(); // Contiene los campos de la tabla
 	private $auxRecord = array(); //contiene propiedades agregadas fuera de los campos de la tabla.
-	private $keyField = "";
-	private $table = NULL;
+	public $validateErrors;
+	public $filterErrors;
+	protected $keyField = "";
+	protected $table = NULL;
 	private $isNew = true;
+	private $multipleRecords = false;
+	private $isValid = true;
 	protected $registry;
 	public $db;	
 	private $columns;
 	
 	public function __construct() {
 		$this->registry = registry::getInstance();
-		$this->db = $this->registry["db"];
-		$this->table = $this->modelName();
+		$this->validateErrors = $this->registry->validateErrors;
+		$this->filterErrors = $this->registry->filterErrors;
 
+		$this->db = $this->registry["db"];
+
+		$this->table = $this->modelName();
+		
 		$rs = $this->db->query("SHOW COLUMNS FROM ".$this->table);
 		
 		while ($row = $this->db->fetchRow()) {
@@ -67,51 +74,9 @@ class ActiveRecord implements ArrayAccess {
 	
 	public function prepareFromArray($array){
 		foreach ($array as $key => $var) {
-			$this->record[$key] = $var;
+                    
+			$this->$key = $var;
 		}		
-	}
-	
-	public function prepareFromJSON($jsonData){
-		$this->prepareFromArray(json_decode($jsonData));
-	}
-	
-	public function jsonCrud($jsonData){
-		//echo "<br><br>".$jsonData."<br>";
-		$arrayData = json_decode($jsonData);
-		//print_r($arrayData);
-		//die();
-		$primary = $this->keyField;
-		if(in_array($arrayData->action,array("add","update","delete"))){
-			//echo "Que hace: $arrayData->action<br>";
-			if(count($arrayData->data)>0){
-				foreach($arrayData->data as $data){
-					if(isset($data->$primary)){ // <-- Esto no esta del todo bien creo...
-						if(is_numeric($data->$primary) && $data->$primary > 0){
-							//echo "Registro: ".$data->$primary."<br>";
-							$this->find($data->$primary);
-							$dataArray = get_object_vars($data);
-							//print_r($dataArray);
-							if($arrayData->action == "add" || $arrayData->action == "update"){
-								$this->prepareFromArray($dataArray);
-								$this->save();
-							}
-							if($arrayData->action == "delete"){
-								$this->delete();
-							}
-							//echo "<br>";
-						} else {
-							throw new Exception("Wrong Primary Key, action failed");
-						}
-					} else {
-						throw new Exception("Primary Key Missing, action failed");
-					}
-				}
-			} else {
-				throw new Exception("No hay nada en el data!");   
-			}
-		} else {
-			throw new Exception("Unknow Action, process failed");
-		}
 	}
 	
 	public function create($values) {		
@@ -126,17 +91,32 @@ class ActiveRecord implements ArrayAccess {
 		return $this->db->lastId();
 	}
 	
+	public function invalidate(){
+		$this->isValid = false;
+	}
 	
 	public function save() {
+		$this->record =	$this->doFilter($this->record);
+		$this->isValid = $this->validates($this->record);
+
+		if ($this->isValid) {		
 			if( $this->isNew ) {
+				if(isset($this->columns["created"])){
+					$this->record["created"] = date("Y-m-d H:i:s",strtotime("now"));
+				}
+				if(isset($this->columns["modified"])){
+					$this->record["modified"] = date("Y-m-d H:i:s",strtotime("now"));
+				}			
 				$id = $this->create($this->record);
 				$this->record[$this->keyField] = $id;
 				$this->isNew = false;
-
 				return $id;
 			} else {
 				return $this->update();
 			}
+		} else {
+			return NULL;
+		}
 	}	
 	
 	public function update() {
@@ -179,6 +159,7 @@ class ActiveRecord implements ArrayAccess {
 			$rs = $this->db->query($sql);
 		}
 		
+		return true;
 		if (!$rs) {
 			throw new Exception("SQL Error, Remove Failed");
 		}
@@ -191,20 +172,11 @@ class ActiveRecord implements ArrayAccess {
 	}
 	
 	public function find($id) { 
-		
-		$sql = "SELECT * FROM ".$this->table." WHERE ".$this->keyField."=".intval($id);
-		$rs = $this->db->query($sql);
-		$row = $this->db->fetchRow();
-		
-		if($row != null){
-			$this->record = $row;
-			$this->isNew = false;
-		}
-		
-		return $this->record;
+		$sql = "SELECT * FROM ".$this->table." WHERE ".$this->keyField."=".intval($id)." LIMIT 1";
+        return $this->findBySql($sql);
 	}	
 	
-	public function findBy($field, $value) { 
+	public function findBy($field, $value) {
 		if(is_array($field)){
 			$where = "";
 			foreach($field as $k=>$v){
@@ -249,6 +221,10 @@ class ActiveRecord implements ArrayAccess {
 			$sql = "SELECT * FROM ".$this->table." WHERE ".$where."";
 		}else{
 			$sql = "SELECT * FROM ".$this->table." WHERE ".$field."='".$this->db->sql_escape($value)."'";
+		}
+		if (!is_array($field)) {
+			//$sql .= " ORDER BY ".$field." ASC";
+			$sql .= " ORDER BY ".$this->keyField." ASC";			
 		}
 		return $this->findAllBySql($sql);
 	}
@@ -304,3 +280,4 @@ class ActiveRecord implements ArrayAccess {
 		return $this->db->sql_escape($msg);
 	}
 }
+?>

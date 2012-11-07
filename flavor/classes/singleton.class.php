@@ -1,6 +1,6 @@
 <?php
 
-class Singleton {
+class singleton {
 	private static $instances = array();
 	
 	public static function getInstance($class) {
@@ -12,3 +12,4 @@ class Singleton {
 
 	private final function __clone() {}
 }
+?>

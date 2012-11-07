@@ -138,3 +138,4 @@ class pgsql_db extends singleton implements data {
 	}
 
 }
+?>

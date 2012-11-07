@@ -1,4 +1,4 @@
-<?php
+<?php  
 
 /**
  * JQuery
@@ -14,7 +14,7 @@
  * @filesource
  */
 
-class Pquery extends Javascript  {
+class pquery extends javascript  {
 	
 		var $CALLBACKS 	=  	array('beforeSend',
 							'complete',
@@ -261,5 +261,9 @@ class Pquery extends Javascript  {
 		if (isset($options['global'])) $js_options['global'] = $options['global'];
 			
 		return $this->_options_for_javascript($js_options);
-	}	
+	}
+
+
+
+	
 }

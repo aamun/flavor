@@ -1,6 +1,6 @@
 <?php
 
-class Registry extends Singleton implements ArrayAccess {
+class registry extends singleton implements ArrayAccess {
 
 	private $vars = array();
 
@@ -12,7 +12,11 @@ class Registry extends Singleton implements ArrayAccess {
 	
 	public function __set($key, $value){
 		if (isset($this->vars[$key]) == true) {
-			throw new Exception("Unable to set var '".$key."'. Already set.");
+                        if ($key == "datos") {
+                            unset($this->vars[$key]);
+                        } else {
+                            throw new Exception("Unable to set var '".$key."'. Already set aaaa.");
+                        }
 		}
 
 		$this->vars[$key] = $value;
@@ -65,3 +69,4 @@ class Registry extends Singleton implements ArrayAccess {
 	}
 	
 }
+?>

@@ -1,6 +1,6 @@
 <?php
 
-abstract class Controller {
+abstract class controller {
 		
 	protected $registry;
 	protected $session;
@@ -8,6 +8,7 @@ abstract class Controller {
 	protected $pagination;
 	protected $l10n;
 	protected $html;
+	protected $dojo;
 	protected $ajax;
 	protected $themes;
 	protected $view;
@@ -21,33 +22,30 @@ abstract class Controller {
 	public function __construct() {
 		$this->registry = registry::getInstance();
 		$this->session = $this->registry["session"];
-		$this->cookie = $this->registry["cookie"];
+		$this->cookie = $this->registry["cookie"];		
 		$this->view = $this->registry["views"];
 		$this->themes = $this->registry["themes"];
 		$this->path = $this->registry["path"];
 		$this->debug = $this->registry["debug"];
 		$this->l10n = l10n::getInstance();
 		$this->html = html::getInstance();
+		$this->dojo = dojo::getInstance();
 		$this->ajax = new ajax();
 		$this->pagination = pagination::getInstance();
-		
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$this->data = $_POST;
 		} else {
 			$this->data = NULL;
 		}
 		$this->isAjax = $this->isAjax();
-		
-		$this->beforeDispatch();
 	}
 
 	abstract public function index($id=NULL);
 		
 	public function beforeRender() {}
 	public function afterRender() {}
-	public function beforeDispatch() {}
 		
-	public function redirect($url, $intern = true) {
+	public function redirect($url, $intern = true) { 
 		$_SESSION["flavor_php_session"]["validateErrors"] = $this->registry->validateErrors;
 		
 		if ($intern) {
@@ -56,7 +54,6 @@ abstract class Controller {
 		} else {
 			$url = $url;
 		}
-		
 		header("Location: ".$url);
 		exit();
 	}
@@ -80,14 +77,14 @@ abstract class Controller {
 	
 	public function renderTheme($theme,$file='index.htm'){
 		$this->beforeRender();
-		$path = Absolute_Path."app".DIRSEP.$theme.DIRSEP."$file";
+		$path = Absolute_Path.APPDIR.DIRSEP.$theme.DIRSEP."$file";
 		echo $this->themes->fetch($path);
 		$this->afterRender();
 		exit;
 	}
 
 	public function fetchTheme($theme,$file='index.htm'){
-		$path = Absolute_Path."app".DIRSEP."themes".DIRSEP.$theme.DIRSEP."$file";
+		$path = Absolute_Path.APPDIR.DIRSEP."themes".DIRSEP.$theme.DIRSEP."$file";
 		return $this->themes->fetch($path);
 	}
 	
@@ -99,7 +96,7 @@ abstract class Controller {
 		$source = get_class($this);
 		if(preg_match("/([a-z])([A-Z])/", $source, $reg)){
 			$source = str_replace($reg[0], $reg[1]."_".strtolower($reg[2]), $source);
-		}	
+		}
 		
 		$controller = explode("_", $source);
 		
@@ -116,10 +113,11 @@ abstract class Controller {
 		}else return '';
 	}
 	
-	/*Why private??*/ function isAjax() {
+	public function isAjax() {
 		//var_dump($_SERVER);
 		//die();
 		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']=="XMLHttpRequest");
 	} 
 	
 }
+?>

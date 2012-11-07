@@ -1,10 +1,10 @@
 <?php
 
-class Mysqli_db extends Singleton implements Data {
+class mysqli_db extends singleton implements data {
 
-	private $connectionId;
-	private $query_result;
-	private $transaction = false;
+	protected $connectionId;
+	protected $query_result;
+	protected $transaction = false;
 	
 	protected function __construct() {
 		$this->dbServer = DB_Server . ((DB_Port) ? ':' . DB_Port : '');
@@ -103,7 +103,7 @@ class Mysqli_db extends Singleton implements Data {
 	
 	public function numRows() {
 		$re = @mysqli_num_rows($this->query_result);
-		if (!$re) {
+		if ($re === false) {
 			throw new Exception($this->errorInfo());
 		}
 		return $re;
@@ -141,3 +141,4 @@ class Mysqli_db extends Singleton implements Data {
 	}
 
 }
+?>

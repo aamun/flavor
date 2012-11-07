@@ -1,6 +1,6 @@
 <?php
 
-class L10n extends Singleton {
+class l10n extends singleton {
 	
 	protected $gettext;
 	protected $input;
@@ -120,7 +120,7 @@ class L10n extends Singleton {
 		if(is_array($lang)){
 			$country = strtolower($lang[1]);
 			switch($country){
-				//Aca una lista con los paises. No se como tendría que hacer para hacer insensible a mayusculas o minusculas: es-MX o es-mx ¿?
+				//Aca una lista con los paises. No se como tendrÃ­a que hacer para hacer insensible a mayusculas o minusculas: es-MX o es-mx Â¿?
 				case 'sa': $out .= " (". $this->__('Saudi Arabia'). ")"; break;
 				case 'iq': $out .= " (". $this->__('Iraq'). ")"; break;
 				case 'eg': $out .= " (". $this->__('Egypt'). ")"; break;
@@ -184,3 +184,4 @@ class L10n extends Singleton {
 		return $out;
 	}
 }
+?>

@@ -7,7 +7,7 @@
   * 
   * @static
   */
-class Inflector {
+class inflector {
 
 	public static function pluralize($word)
     {
@@ -98,3 +98,4 @@ class Inflector {
 
     }
 }
+?>

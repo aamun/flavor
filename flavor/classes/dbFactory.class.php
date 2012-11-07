@@ -1,7 +1,7 @@
 <?php
 
 // Select the DB strategy
-class DbFactory {
+class dbFactory {
 
 	private $strategy = NULL;
 	
@@ -118,3 +118,4 @@ class DbFactory {
 		}
 	}	
 }
+?>
