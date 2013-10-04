@@ -132,8 +132,8 @@ class Html extends Singleton {
 		return "<form action=\"".$url."\" method=\"" . $method. "\" " . $html_attributes .">";
 	}
 
-	public function formFiles($url){
-		return "<form action=\"".$this->path.$url."\" method=\"post\" enctype=\"multipart/form-data\">";
+	public function formFiles($url, $html_attributes = ""){
+		return "<form action=\"".$this->path.$url."\" method=\"post\" enctype=\"multipart/form-data\" {$html_attributes}>";
 	}
 
 	public function linkTo($text, $url="", $html_attributes="", $absolute = false) {
