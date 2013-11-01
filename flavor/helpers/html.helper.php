@@ -17,7 +17,7 @@ class Html extends Singleton {
 		$this->type= "themes/".$this->type;
 	}
 
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 
