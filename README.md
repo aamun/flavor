@@ -28,28 +28,29 @@ v 1.1
 ## CREDITS
 FlavorPHP developers and designers (in chronological order):
 
-* [Pedro Santana|http://www.pecesama.net/]
-* [Victor Bracco|http://www.vbracco.com.ar/]
-* [Victor de la Rocha|http://www.mis-algoritmos.com/]
-* [Jorge Condomi|http://www.raven.com.ar/]
-* [Aaron Munguia|http://www.aaronmunguia.com/]
+* [Pedro Santana](http://www.pecesama.net/)
+* [Victor Bracco](http://www.vbracco.com.ar/)
+* [Victor de la Rocha](http://www.mis-algoritmos.com/)
+* [Jorge Condomi](http://www.raven.com.ar/)
+* [Aaron Munguia](http://www.aaronmunguia.com/)
 
 #### COPYRIGHT NOTICES
-This product includes code and libraries developed by third parties, which are governed by different licenses.  These components, and their licenses, are listed below.
+This product includes code and libraries developed by third parties, which are governed by different licenses.
+These components, and their licenses, are listed below.
 
 #### jQuery
-Copyright (c) 2007 John Resig, http://jquery.com
+Copyright (c) 2007 John Resig, http://jquery.com  
 jQuery is available under a dual licensed the MIT and GPL licenses.
 
 #### jQuery Facebox
-Copyright (c) 2008  Chris Wanstrath, http://famspam.com/facebox/
+Copyright (c) 2008  Chris Wanstrath, http://famspam.com/facebox/  
 jQuery Facebox available under an MIT License.
 
 #### PHP-gettext
-Copyright (c) 2003 Danilo Segan, http://savannah.nongnu.org/projects/php-gettext/
-Copyright (c) 2005 Nico Kaiser
+Copyright (c) 2003 Danilo Segan, http://savannah.nongnu.org/projects/php-gettext/  
+Copyright (c) 2005 Nico Kaiser  
 PHP-gettext available under GNU General Public License.
 
 #### Inflector class
-Copyright (c) CakePHP project, http://cakephp.org/
+Copyright (c) CakePHP project, http://cakephp.org/  
 CakePHP is available under an open source license
