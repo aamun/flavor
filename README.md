@@ -4,13 +4,6 @@ FlavorPHP is a PHP 5 framework based on the MVC architectural pattern, construct
 
 FlavorPHP aims to empower its users to rapidly develop web applications in an easy to use way.
 
-#### Authors:
-
-* Pedro Santana <pecesama_at_gmail_dot_com>
-* Victor Bracco <vbracco_at_gmail_dot_com>
-* Victor de la Rocha <vyk2rr_at_gmail_dot_com>
-* Aaron Munguia <aamm89_at_gmail_dot_com>
-
 ===
 
 ### FlavorPHP Requirements
@@ -19,10 +12,10 @@ FlavorPHP aims to empower its users to rapidly develop web applications in an ea
 * Apache Web Server with mod rewrite installed.
 * Mysql Database Server.
 
-### QUICKLY INSTALLATION
+### Quickly Installation
 
 1. Clone the repository.
-2. Rename the folder to your project name or copy all the file to the root of your hosting web server.
+2. Rename the folder to your project name or copy all the file into the root of your hosting web server.
 3. Configure.
 4. Enjoy and have fun (it's most important).
 
@@ -31,3 +24,33 @@ Log
 
 v 1.1
 ...
+
+
+== CREDITS ==
+FlavorPHP developers and designers (in chronological order):
+
+Pedro Santana [ http://www.pecesama.net/ ]
+Victor Bracco [ http://www.vbracco.com.ar/ ]
+Victor de la Rocha [ http://www.mis-algoritmos.com/ ]
+Jorge Condomi [ http://www.raven.com.ar/ ]
+Aaron Munguia [ http://www.aaronmunguia.com/ ]
+
+= COPYRIGHT NOTICES =
+This product includes code and libraries developed by third parties, which are governed by different licenses.  These components, and their licenses, are listed below.
+
+= jQuery =
+Copyright (c) 2007 John Resig, http://jquery.com
+jQuery is available under a dual licensed the MIT and GPL licenses.
+
+= jQuery Facebox =
+Copyright (c) 2008  Chris Wanstrath, http://famspam.com/facebox/
+jQuery Facebox available under an MIT License.
+
+= PHP-gettext =
+Copyright (c) 2003 Danilo Segan, http://savannah.nongnu.org/projects/php-gettext/
+Copyright (c) 2005 Nico Kaiser
+PHP-gettext available under GNU General Public License.
+
+= Inflector class =
+Copyright (c) CakePHP project, [http://cakephp.org/]
+CakePHP is available under an open source license
