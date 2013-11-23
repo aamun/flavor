@@ -1,5 +1,8 @@
 <?php
-
+/**
+ *
+ *
+ */
 class Mysqli_db extends Singleton implements Data {
 
 	private $connectionId;
@@ -20,7 +23,7 @@ class Mysqli_db extends Singleton implements Data {
 		}
 	}
 	
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 			
