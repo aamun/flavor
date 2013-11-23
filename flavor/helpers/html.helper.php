@@ -149,8 +149,8 @@ class Html extends Singleton {
 		return $html;
 	}
 
-	public function image($name, $alt=""){
-		return "<img src=\"".$this->path.'app/'.$this->type."/images/".$name."\" alt=\"".$alt."\" title=\"".$alt."\" />";
+	public function image($name, $alt="", $html_attributes = ""){
+		return "<img src=\"".$this->path.'app/'.$this->type."/images/".$name."\" alt=\"".$alt."\" title=\"".$alt."\" {$html_attributes} />";
 	}
 
 	public function imageLink($text, $url="", $html_attributes="", $name, $alt=""){
