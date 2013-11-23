@@ -1,5 +1,7 @@
-FlavorPHP is a PHP 5 framework based on the MVC architectural pattern, constructed with the help of several patterns.
+# FlavorPHP MVC Framework
+===
 
+FlavorPHP is a PHP 5 framework based on the MVC architectural pattern, constructed with the help of several patterns.
 FlavorPHP aims to empower its users to rapidly develop web applications in an easy to use way.
 
 #### Authors:
@@ -23,8 +25,8 @@ FlavorPHP it have a few requirements that are the follow:
 
 1. Clone the repository.
 2. Rename the folder to your project name or copy all the file to the root of your hosting web server.
-3. [[Configure|Configuration]]
-4. Enjoy (most important).
+3. Configure.
+4. Enjoy and have fun (it's most important).
 
 
 Log 
