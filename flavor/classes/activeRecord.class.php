@@ -1,5 +1,9 @@
-<?php 
-
+<?php
+/**
+ * ActiveRecord 
+ *
+ * @method __construct()
+ */
 class ActiveRecord implements ArrayAccess {
 	protected $record = array(); // Contiene los campos de la tabla
 	private $auxRecord = array(); //contiene propiedades agregadas fuera de los campos de la tabla.
@@ -67,7 +71,7 @@ class ActiveRecord implements ArrayAccess {
 	
 	public function prepareFromArray($array){
 		foreach ($array as $key => $var) {
-			$this->record[$key] = $var;
+			$this[$key] = $var;
 		}		
 	}
 	
