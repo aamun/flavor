@@ -2,14 +2,16 @@ FlavorPHP is a PHP 5 framework based on the MVC architectural pattern, construct
 
 FlavorPHP aims to empower its users to rapidly develop web applications in an easy to use way.
 
-@author Pedro Santana <pecesama_at_gmail_dot_com>
-@author Victor Bracco <vbracco_at_gmail_dot_com>
-@author Victor de la Rocha <vyk2rr_at_gmail_dot_com>
-@author Aaron Munguia <aamm89_at_gmail_dot_com>
+#### Authors:
 
+* Pedro Santana <pecesama_at_gmail_dot_com>
+* Victor Bracco <vbracco_at_gmail_dot_com>
+* Victor de la Rocha <vyk2rr_at_gmail_dot_com>
+* Aaron Munguia <aamm89_at_gmail_dot_com>
 
-FlavorPHP Requirements
-=== 
+===
+
+### FlavorPHP Requirements
 
 FlavorPHP it have a few requirements that are the follow:
 
@@ -17,11 +19,11 @@ FlavorPHP it have a few requirements that are the follow:
 * Apache Web Server with mod rewrite installed.
 * Mysql Database Server.
 
-QUICKLY INSTALLATION
+### QUICKLY INSTALLATION
 
 1. Clone the repository.
 2. Rename the folder to your project name or copy all the file to the root of your hosting web server.
-3. [[Configure.|Configuration]]
+3. [[Configure|Configuration]]
 4. Enjoy (most important).
 
 
