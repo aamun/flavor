@@ -6,7 +6,7 @@ class L10n extends Singleton {
 	protected $input;
 	protected $language=NULL;
 	
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 

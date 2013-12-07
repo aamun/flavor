@@ -25,7 +25,7 @@ class Pagination extends Singleton {
 		$this->l10n = l10n::getInstance();
 	}
 	
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 	

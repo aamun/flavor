@@ -17,7 +17,7 @@ class Html extends Singleton {
 		$this->type= "themes/".$this->type;
 	}
 
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 
@@ -132,8 +132,8 @@ class Html extends Singleton {
 		return "<form action=\"".$url."\" method=\"" . $method. "\" " . $html_attributes .">";
 	}
 
-	public function formFiles($url){
-		return "<form action=\"".$this->path.$url."\" method=\"post\" enctype=\"multipart/form-data\">";
+	public function formFiles($url, $html_attributes = ""){
+		return "<form action=\"".$this->path.$url."\" method=\"post\" enctype=\"multipart/form-data\" {$html_attributes}>";
 	}
 
 	public function linkTo($text, $url="", $html_attributes="", $absolute = false) {
@@ -149,8 +149,8 @@ class Html extends Singleton {
 		return $html;
 	}
 
-	public function image($name, $alt=""){
-		return "<img src=\"".$this->path.'app/'.$this->type."/images/".$name."\" alt=\"".$alt."\" title=\"".$alt."\" />";
+	public function image($name, $alt="", $html_attributes = ""){
+		return "<img src=\"".$this->path.'app/'.$this->type."/images/".$name."\" alt=\"".$alt."\" title=\"".$alt."\" {$html_attributes} />";
 	}
 
 	public function imageLink($text, $url="", $html_attributes="", $name, $alt=""){
@@ -233,4 +233,35 @@ class Html extends Singleton {
 		$html .= "</select>\n";
 		return $html;
 	}
+        
+        /**
+         * Function to create a html select component from a model result.
+         * 
+         * @param string $name
+         * @param array $items
+         * @param string $selected
+         * @param string $descriptionKey
+         * @param string $valueKey
+         * @param string $htmlAttributs
+         * @return string 
+         */
+        public function selectFromModel($name, $items, $selected="", $descriptionKey=NULL, $valueKey=NULL, $htmlAttributs = ""){
+            $html = "<select name=\"$name\" id=\"$name\" $htmlAttributs>\n";
+            foreach ($items as $key => $item){
+                $html .= "\t<option";
+
+                // Set value 
+                $value = $valueKey == NULL ? $key : ( isset($item[$valueKey])? $item[$valueKey] : $key );
+                $html .= " value=\"$value\"";
+                if($selected == $value){
+                    $html .= " selected=\"selected\"";
+                }
+                
+                // Set description
+                $description = $descriptionKey == NULL ? $item : ( isset($item[$descriptionKey])? $item[$descriptionKey] : $item ); ;
+                $html .= ">$description</option>\n";
+            }
+            $html .= "</select>\n";
+            return $html;
+        }
 }

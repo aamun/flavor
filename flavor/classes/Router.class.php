@@ -12,7 +12,7 @@ class Router{
 	private $parts;
 	
 	public function __construct() {
-		$this->registry = registry::getInstance();
+		$this->registry = Registry::getInstance();
 		$this->getRoutes();
 	}
 	
@@ -23,32 +23,25 @@ class Router{
 	public function dispatch() {
 		$this->getController();
 
-		$controller = $this->class['controller'];
-		$action = $this->class['action'];
-		$params = $this->class['params'];
-		
-		$class = $controller."_controller";
-		$controller = new $class();
+        $controller = $this->class['controller'];
+        $action = $this->class['action'];
+        $params = $this->class['params'];
+        
+        $class = $controller."_controller";
+        
+        $this->parts = array_pad($this->parts, -(count($this->parts) + count($params)), $params);
+        
+        $reflection_class = new ReflectionClass($class);
+        $controller = $reflection_class->newInstanceArgs(array()); // FIXME: how get the construct params?
 
-		if(!is_callable(array($controller,$action))) {
-			$this->notFound();
-		}
-
-		$controller->action = $action;
-		$controller->params = $params;
-
-		if($params){
-			//Maybe we want more parameters
-			$extra_params = '';
-			foreach($this->parts as $param){
-				$extra_params .= ", '$param'";			
-			}
-			
-			$exec = "\$controller->".$action."('".$params."'".$extra_params.");";
-			eval($exec);
-		}else{
-			$controller->$action();
-		}
+        if(!is_callable(array($controller,$action))) {
+            $this->notFound();
+        }
+        
+        $controller->params = $this->parts;
+        
+        $controller->action = $action;
+        call_user_func_array(array($controller, $controller->action), $controller->params);
 	}
 	
 	private function getController(){
@@ -110,7 +103,7 @@ class Router{
 			$controller = "index";
 		}
 
-		$this->class['controller'] = $controller;
+		$this->class['controller'] = Inflector::camelize($controller);
 		$this->class['action'] = $action;
 		$this->class['params'] = $params;
 	}
@@ -192,7 +185,8 @@ class Router{
 	}
 
 	private function controllerExists($controller){
-		return file_exists(Absolute_Path.APPDIR.DIRSEP.'controllers'.DIRSEP."{$controller}_controller.php");
+		// return file_exists(Absolute_Path.APPDIR.DIRSEP.'controllers'.DIRSEP."{$controller}_controller.php");
+		return class_exists(Inflector::camelize($controller)."_controller");
 	}
 	/*
 	 * Obtiene las rutas desde el archivo app/routes.php

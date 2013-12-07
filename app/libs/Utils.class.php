@@ -1,7 +1,7 @@
 <?php
 
-class utils{
-	function pre($arr,$exit = true){
+class Utils{
+	public static function pre($arr,$exit = true){
 		echo "<pre>";
 		print_r($arr);
 		echo "</pre>";

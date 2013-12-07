@@ -6,7 +6,7 @@ class Registry extends Singleton implements ArrayAccess {
 
 	public function __construct() { }
 	
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 	

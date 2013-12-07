@@ -19,17 +19,17 @@ abstract class Controller {
 	public $isAjax;
 
 	public function __construct() {
-		$this->registry = registry::getInstance();
+		$this->registry = Registry::getInstance();
 		$this->session = $this->registry["session"];
 		$this->cookie = $this->registry["cookie"];
 		$this->view = $this->registry["views"];
 		$this->themes = $this->registry["themes"];
 		$this->path = $this->registry["path"];
 		$this->debug = $this->registry["debug"];
-		$this->l10n = l10n::getInstance();
-		$this->html = html::getInstance();
-		$this->ajax = new ajax();
-		$this->pagination = pagination::getInstance();
+		$this->l10n = L10n::getInstance();
+		$this->html = Html::getInstance();
+		$this->ajax = new Ajax();
+		$this->pagination = Pagination::getInstance();
 		
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$this->data = $_POST;
@@ -96,7 +96,14 @@ abstract class Controller {
 	}
 	
 	protected function controllerName(){
-		$source = get_class($this);
+		// Get the class name
+		$className = get_class($this);
+		// remove '_controller' string, we suppose that you'll don't use '_controller' like controller name
+		$className = str_replace('_controller', '', $className);		
+		// transform to low case and return
+		return strtolower($className);
+
+		/*
 		if(preg_match("/([a-z])([A-Z])/", $source, $reg)){
 			$source = str_replace($reg[0], $reg[1]."_".strtolower($reg[2]), $source);
 		}	
@@ -104,6 +111,7 @@ abstract class Controller {
 		$controller = explode("_", $source);
 		
 		return strtolower($controller[0]);
+		*/
 	}
 	
 	protected function endsWith($str, $sub) {

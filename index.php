@@ -2,10 +2,12 @@
 /**
   * FlavorPHP is a framework based on MVC pattern, constructed with the help of several patterns.
   *
-  * @version SVN
+  * @version GIT <On branch develop>
   * @author Pedro Santana <pecesama_at_gmail_dot_com>
   * @author Victor Bracco <vbracco_at_gmail_dot_com>
   * @author Victor de la Rocha <vyk2rr_at_gmail_dot_com>
+  * @author Aaron Munguía <aamm89_at_gmail_dot_com>
+  *
   */
 
 error_reporting (E_ALL);
@@ -30,7 +32,6 @@ if (!file_exists($configFile)) {
 }
 
 function __autoload($className) {
-	$className = strtolower($className);
 	$directories = array(
 		Absolute2Flavor.'flavor'.DIRSEP.'classes'.DIRSEP.$className.'.class.php', // Flavor classes
 		Absolute2Flavor.'flavor'.DIRSEP.'interfaces'.DIRSEP.$className.'.interface.php', // maybe we want an interface
@@ -79,7 +80,7 @@ try {
 	}
 	$registry->db = $db;
 
-	$views = new Appviews();
+	$views = new AppViews();
 	$registry->views = $views;
 
 	$themes = new Themes();

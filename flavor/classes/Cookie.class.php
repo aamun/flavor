@@ -14,7 +14,7 @@ class Cookie extends Singleton implements ArrayAccess {
 		}
 	}
 	
-	public static function getInstance() {
+	public static function getInstance($class = null) {
 		return parent::getInstance(get_class());
 	}
 
