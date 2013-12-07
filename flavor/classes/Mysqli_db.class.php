@@ -98,7 +98,7 @@ class Mysqli_db extends Singleton implements Data {
 		return $re;
 	}
 	
-	function nextId($table, $primary) {		
+	public function nextId($table, $primary) {		
 		$this->query("select max(".$primary.") as nextId from ".$table);
 		$row = @mysql_fetch_row($this->query_result);
 		return $row["nextId"] + 1;
@@ -109,9 +109,20 @@ class Mysqli_db extends Singleton implements Data {
 		return $re;
 	}
 	
-	function affectedRows() {
+	/**
+	 * Returns the number of rows affected by the last INSERT, UPDATE, REPLACE or DELETE query.
+	 *
+	 * An integer greater than zero indicates the number of rows affected or retrieved. 
+	 * Zero indicates that no records were updated for an UPDATE statement, 
+	 * no rows matched the WHERE clause in the query or that no query has yet been executed. 
+	 * -1 indicates that the query returned an error.
+	 *
+	 * @return int indicates the number of rows affected or retrieved.
+	 * @throws Exception When have a sql error or not have connection id.
+	 */
+	public function affectedRows() {
 		$re = ($this->connectionId) ? @mysqli_affected_rows($this->connectionId) : false;
-		if (!$re) {
+		if ($re === false || $re < 0) {
 			throw new Exception($this->errorInfo());
 		}
 		return $re;
