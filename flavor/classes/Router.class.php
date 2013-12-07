@@ -12,7 +12,7 @@ class Router{
 	private $parts;
 	
 	public function __construct() {
-		$this->registry = registry::getInstance();
+		$this->registry = Registry::getInstance();
 		$this->getRoutes();
 	}
 	
@@ -103,7 +103,7 @@ class Router{
 			$controller = "index";
 		}
 
-		$this->class['controller'] = $controller;
+		$this->class['controller'] = Inflector::camelize($controller);
 		$this->class['action'] = $action;
 		$this->class['params'] = $params;
 	}
@@ -185,7 +185,8 @@ class Router{
 	}
 
 	private function controllerExists($controller){
-		return file_exists(Absolute_Path.APPDIR.DIRSEP.'controllers'.DIRSEP."{$controller}_controller.php");
+		// return file_exists(Absolute_Path.APPDIR.DIRSEP.'controllers'.DIRSEP."{$controller}_controller.php");
+		return class_exists(Inflector::camelize($controller)."_controller");
 	}
 	/*
 	 * Obtiene las rutas desde el archivo app/routes.php
