@@ -80,7 +80,7 @@ try {
 	}
 	$registry->db = $db;
 
-	$views = new Appviews();
+	$views = new AppViews();
 	$registry->views = $views;
 
 	$themes = new Themes();
