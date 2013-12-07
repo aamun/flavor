@@ -19,13 +19,7 @@ FlavorPHP aims to empower its users to rapidly develop web applications in an ea
 3. Configure.
 4. Enjoy and have fun (it's most important).
 
-
-Changes Log 
-
-v 1.1
-...
-
-## CREDITS
+### CREDITS
 FlavorPHP developers and designers (in chronological order):
 
 * [Pedro Santana](http://www.pecesama.net/)
