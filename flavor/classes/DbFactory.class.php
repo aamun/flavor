@@ -13,13 +13,13 @@ class DbFactory {
 		try {
 			switch ($strategy) {
 				case 'mysql' :
-					$this->strategy = mysql_db::getInstance();
+					$this->strategy = Mysql_db::getInstance();
 					break;
 				case 'mysqli' :
-					$this->strategy = mysqli_db::getInstance();
+					$this->strategy = Mysqli_db::getInstance();
 					break;
 				case 'pgsql' :
-					$this->strategy = pgsql_db::getInstance();
+					$this->strategy = Pgsql_db::getInstance();
 					break;
 			}
 		} catch(Exception $e) {
