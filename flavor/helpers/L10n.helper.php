@@ -1,5 +1,4 @@
 <?php
-
 class L10n extends Singleton {
 	
 	protected $gettext;
@@ -23,8 +22,8 @@ class L10n extends Singleton {
 	
 	public function setLanguage($lang){
 		$this->language = $lang;
-		$this->input = new streams(dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."languages".DIRECTORY_SEPARATOR.$this->language.DIRECTORY_SEPARATOR."messages.mo");	
-		$this->gettext = new gettext($this->input);
+		$this->input = new Streams(dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."languages".DIRECTORY_SEPARATOR.$this->language.DIRECTORY_SEPARATOR."messages.mo");	
+		$this->gettext = new Gettext($this->input);
 	}
 	
 	public function getLocalization() {
