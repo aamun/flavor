@@ -1,4 +1,5 @@
 <?php
+define('FlavorAppId', "flavor_app"); // This is to avoid session vars collide each other, if you have more than one flavor app on the same server
 define('requiresBD', false);
 define('DB_Engine', 'mysqli');
 define('DB_Server', '');
