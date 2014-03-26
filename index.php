@@ -31,7 +31,7 @@ if (!file_exists($configFile)) {
 	}
 }
 
-function flavor_autoload($className) {
+function __autoload($className) {
 	$directories = array(
 		Absolute2Flavor.'flavor'.DIRSEP.'classes'.DIRSEP.$className.'.class.php', // Flavor classes
 		Absolute2Flavor.'flavor'.DIRSEP.'interfaces'.DIRSEP.$className.'.interface.php', // maybe we want an interface
@@ -57,15 +57,8 @@ function flavor_autoload($className) {
 	}
 }
 
-if(function_exists('spl_autoload_register')) {
-	//We register our flavor autoload (flavor_autoload function)
-	spl_autoload_register('flavor_autoload');
-} else {
-	//We hope nobody else uses __autoload :/
-	function __autoload($className) {
-		flavor_autoload($className);
-	}
-}
+//We register our flavor autoload
+spl_autoload_register('__autoload');
 
 // 'Globals' to be used throughout the application
 // usign the _Registry Pattern_
