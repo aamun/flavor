@@ -59,7 +59,7 @@ function flavor_autoload($className) {
 
 if(function_exists('spl_autoload_register')) {
 	//We register our flavor autoload (flavor_autoload function)
-	spl_autoload_register('flavor_autoload', true, true);
+	spl_autoload_register('flavor_autoload');
 } else {
 	//We hope nobody else uses __autoload :/
 	function __autoload($className) {
