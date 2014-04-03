@@ -33,7 +33,7 @@ class Session extends Singleton implements ArrayAccess {
 	}
 	
 	function issetFlash(){
-		if (!isset($_SESSION["flavor_fwk_session"][FlavorAppId]["flash"]) or $_SESSION["flavor_fwk_session"]["flash"] == ""){
+		if (!isset($_SESSION["flavor_fwk_session"][FlavorAppId]["flash"]) or $_SESSION["flavor_fwk_session"][FlavorAppId]["flash"] == ""){
 			return false;
 		}
 		return true;
