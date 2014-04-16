@@ -31,8 +31,6 @@ class Models extends ActiveRecord {
 		if (!defined('VALID_URL')) { 
 			define('VALID_URL', '/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}((:[0-9]{1,5})?\/.*)?$/i'); 
 		}
-
-		$this->messages = Message::getInstance();
 	}
 	
 	public function doFilter($datos) {
@@ -85,7 +83,6 @@ class Models extends ActiveRecord {
                                     if(method_exists($this, $function)) {
                                         if($this->$function($valor,$rule['rule'])) {
                                             $this->validateErrors[] = array($campo => array ('message' => $rule['message']));
-                                            $this->messages->addMessage(Message::ERROR, ucfirst($campo)." : {$rule['message']}");
                                         }
                                     } else {
                                         die("Fatal Error: No existe la funcion {$function} que usa  el campo '{$campo}'");
@@ -93,7 +90,6 @@ class Models extends ActiveRecord {
                                 } else {
                                     if(!preg_match($rule['rule'], $valor)) {
                                         $this->validateErrors[] = array($campo => array ('message' => $rule['message']));
-                                        $this->messages->addMessage(Message::ERROR, ucfirst($campo)." : {$rule['message']}");
                                     }
                                 }
                             } else {
