@@ -150,11 +150,13 @@ class Router{
 	 */
 	private function getParams(){
 		foreach($this->routes as $target=>$route){
-			if(preg_match("|^$route/$|",($this->uri!='index/')?$this->uri:'',$out)){
+			if(preg_match("|^$route|",($this->uri!='index/')?$this->uri:'',$out)){
 				if(isset($out)){
 					unset($out[0]);
-					foreach($out as $k=>$v)
+					foreach($out as $k=>$v){
 						$target = str_replace("\$$k",$v,$target);
+					}
+					// TODO: Validate controller exists (?)
 					if(!($this->controllerExists($this->parts[0]) and ($route=='(.*)' or $route=='(.+)'))){
 						$this->route = $this->cleanRoute($target);
 						$this->cleanRoute();
@@ -186,7 +188,8 @@ class Router{
 
 	private function controllerExists($controller){
 		// return file_exists(Absolute_Path.APPDIR.DIRSEP.'controllers'.DIRSEP."{$controller}_controller.php");
-		return class_exists(Inflector::camelize($controller)."_controller");
+		return file_exists(Absolute_Path.APPDIR.DIRSEP.'controllers'.DIRSEP.Inflector::camelize($controller)."_controller.php");
+		// return class_exists(Inflector::camelize($controller)."_controller");
 	}
 	/*
 	 * Obtiene las rutas desde el archivo app/routes.php
@@ -200,9 +203,9 @@ class Router{
 	 */
 	public function add($GET,$target){
 		if(is_array($target)){
-			$controller = isset($route['controller'])?$route['controller']:'index';
-			$action = isset($route['action'])?$route['action']:'index';
-			$params = isset($route['params'])?$route['params']:null;
+			$controller = isset($target['controller'])?$target['controller']:'index';
+			$action = isset($target['action'])?$target['action']:'index';
+			$params = isset($target['params'])?$target['params']:null;
 			$target = "$controller/$action/$params";
 		}
 		$this->routes[$target] = $GET;
