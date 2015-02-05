@@ -134,6 +134,22 @@ class Mysqli_db extends Singleton implements Data {
 	    }
 		return mysqli_real_escape_string($this->connectionId, $msg);
 	}
+
+	/**
+	 * Clear results from memory
+	 * Frees the memory associated with the result.
+	 * 
+	 */
+	public function freeResult(){
+		mysqli_free_result($this->query_result);
+		while(mysqli_more_results($this->connectionId) && mysqli_next_result($this->connectionId)) {
+			$dummyResult = mysqli_use_result($this->connectionId);
+
+			if($dummyResult instanceof mysqli_result) {
+				mysqli_free_result($this->connectionId);
+			}
+		}
+	}
 	
 	public function errorInfo($sql = '') { 
 		return '<u>SQL ERROR</u> <br /><br />' . @mysqli_error($this->connectionId) . '<br /><br /><u>SQL ERROR NUMBER</u> <br /><br />' . @mysqli_errno($this->connectionId) . (($sql != '') ? '<br /><br /><u>SQL</u><br /><br />' . $sql : '') . '<br />';

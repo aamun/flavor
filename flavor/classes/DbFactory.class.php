@@ -108,6 +108,15 @@ class DbFactory {
 			exit();
 		}
 	}
+
+	public function freeResult(){
+		try {
+			return $this->strategy->freeResult();
+		} catch(Exception $e) {
+			echo $e->getMessage();
+			exit();
+		}
+	}
 	
 	public function close() {
 		try {

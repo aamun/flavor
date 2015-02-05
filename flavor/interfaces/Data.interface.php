@@ -13,6 +13,7 @@ interface Data {
 	public function numRows();
 	public function affectedRows();
 	public function sql_escape($msg);
+	public function freeResult();
 	public function errorInfo($sql = '');
 	public function close();
 	
